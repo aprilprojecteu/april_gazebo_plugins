@@ -88,6 +88,12 @@ void ConveyorBeltPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   this->populationRateModifierPub =
     this->gzNode->Advertise<msgs::GzString>(populationRateModifierTopic);
 
+  if (_sdf->HasElement("cb_rotation_angle"))
+    this->cb_rotation_angle = _sdf->Get<double>("cb_rotation_angle");
+
+  if (_sdf->HasElement("retraction_distance"))
+    this->retraction_distance = _sdf->Get<double>("retraction_distance");
+
   // always enable conveyor belt
   this->enabled = true;
 
@@ -110,8 +116,12 @@ void ConveyorBeltPlugin::OnUpdate()
     // found an incorrect value in childLinkPose within
     // Joint::SetPositionMaximal(). This workaround makes sure that the right
     // numbers are always used in our scenario.
-    const ignition::math::Pose3d childLinkPose(1.20997, 2.5998, 0.8126, 0, 0, -1.57);
-    const ignition::math::Pose3d newChildLinkPose(1.20997, 2.98, 0.8126, 0, 0, -1.57);
+
+    const ignition::math::Pose3d childLinkPose(0, 0, 0, 0, 0, 0);
+    const ignition::math::Pose3d newChildLinkPose(
+      this->retraction_distance * sin(this->cb_rotation_angle),
+      this->retraction_distance * cos(this->cb_rotation_angle), 0, 0, 0, 0);
+
     this->link->MoveFrame(childLinkPose, newChildLinkPose);
   }
 

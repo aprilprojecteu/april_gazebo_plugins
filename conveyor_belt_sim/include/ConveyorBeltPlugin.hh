@@ -173,6 +173,18 @@ namespace gazebo
     /// \brief Maximum linear velocity of the belt.
     private: const double kMaxBeltLinVel = 0.2;
 
+    /// \brief The rotation angle of the conveyor belt w.r.t to world frame in radians
+    /* e.g.
+    ===>  :  270 degree = 4.71239 rad
+    <==   :  90  degree = 1.5708 rad
+    ^     :  180 degree = 3.14159 rad
+    \/    : (conveyor pointing down is 0°) 0 degree = 0 rad
+    */
+    private: double cb_rotation_angle = 0.0;
+
+    /// \brief The distance the conveyor travels before reseting itself (hack)
+    private: double retraction_distance = 0.3;
+
     /// \brief Gazebo node for communication.
     protected: transport::NodePtr gzNode;
 
