@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# install by: sudo -H pip3 install xacro4sdf
+
+xacro4sdf model.sdf.xacro

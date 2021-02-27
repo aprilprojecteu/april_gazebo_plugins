@@ -42,8 +42,12 @@ void ROSConveyorBeltPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf
   this->robotNamespace_ = "";
   if (_sdf->HasElement("robot_namespace"))
   {
-    this->robotNamespace_ = _sdf->GetElement(
-        "robot_namespace")->Get<std::string>() + "/";
+    this->robotNamespace_ += _sdf->GetElement("robot_namespace")->Get<std::string>() + "/";
+  }
+
+  if (_sdf->HasElement("conveyor_name"))
+  {
+    this->robotNamespace_ += _sdf->GetElement("conveyor_name")->Get<std::string>() + "/";
   }
 
   // Make sure the ROS node for Gazebo has already been initialized
@@ -55,11 +59,11 @@ void ROSConveyorBeltPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf
     return;
   }
 
-  std::string controlTopic = "conveyor/control";
+  std::string controlTopic = "control";
   if (_sdf->HasElement("control_topic"))
     controlTopic = _sdf->Get<std::string>("control_topic");
 
-  std::string stateTopic = "conveyor/state";
+  std::string stateTopic = "state";
   if (_sdf->HasElement("state_topic"))
     stateTopic = _sdf->Get<std::string>("state_topic");
 

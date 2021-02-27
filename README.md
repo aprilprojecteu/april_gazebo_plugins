@@ -4,8 +4,12 @@ A collection of machines used in april project.
 
 Simulation in gazebo 11 is provided.
 
+# installation
+
+sudo -H pip3 install xacro4sdf
+
 # Conveyor belt
 
-roslaunch osrf_gear only_conveyor.launch
+roslaunch osrf_gear single_conveyor.launch
 rosservice call /gazebo/unpause_physics "{}"
-rosservice call /ariac/conveyor/control "power: 75"
+rosservice call /machinery/conveyor_belt_a/control "power: 75"

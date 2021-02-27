@@ -19,4 +19,9 @@
     <arg name="conveyor_name" value="a"/>
   </include>
 
+  <include file="$(find conveyor_belt_sim)/launch/conveyor_spawn.launch">
+    <arg name="conveyor_name" value="b"/>
+    <arg name="conveyor_pose" value="-x 1.0 -y 1.0"/> <!-- [-x X] [-y Y] [-z Z] [-R R] [-P P] [-Y Y] -->
+  </include>
+
 </launch>

@@ -4,7 +4,7 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <sdf version="1.6">
-	<model name="conveyor_belt_b">
+	<model name="conveyor_belt_a">
 		<!-- Fixed frame that can be used to refer to the belt's global pose -->
 		<model name="conveyor_belt_fixed">
 			<static>true</static>
@@ -93,8 +93,8 @@
 		</joint>
 		<plugin filename="libROSConveyorBeltPlugin.so" name="conveyor_belt_plugin">
 			<robot_namespace>/machinery</robot_namespace>
-			<conveyor_name>conveyor_belt_b</conveyor_name>
-			<link>conveyor_belt_b::conveyor_belt_moving::belt</link>
+			<conveyor_name>conveyor_belt_a</conveyor_name>
+			<link>conveyor_belt_a::conveyor_belt_moving::belt</link>
 			<power>0</power>
 			<update_rate>10</update_rate>
 		</plugin>
