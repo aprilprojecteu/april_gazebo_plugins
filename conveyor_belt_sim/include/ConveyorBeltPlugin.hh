@@ -147,9 +147,6 @@ namespace gazebo
     /// conveyor state.
     private: virtual void Publish() const;
 
-    /// \brief Call back for enable/disable messaged.
-    protected: void OnEnabled(ConstGzStringPtr &_msg);
-
     /// \brief Belt velocity (m/s).
     protected: double beltVelocity = 0.0;
 

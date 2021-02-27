@@ -88,14 +88,8 @@ void ConveyorBeltPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   this->populationRateModifierPub =
     this->gzNode->Advertise<msgs::GzString>(populationRateModifierTopic);
 
-  // Subscriber for the belt's activation topic.
-  if (_sdf->HasElement("enable_topic"))
-  {
-    std::string enableTopic = _sdf->Get<std::string>("enable_topic");
-    this->enabledSub =
-      this->gzNode->Subscribe(enableTopic, &ConveyorBeltPlugin::OnEnabled, this);
-    this->enabled = false;
-  }
+  // always enable conveyor belt
+  this->enabled = true;
 
   // Listen to the update event that is broadcasted every simulation iteration.
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
@@ -162,25 +156,6 @@ void ConveyorBeltPlugin::SetPower(const double _power)
   // Convert the power (percentage) to a velocity.
   this->beltVelocity = this->kMaxBeltLinVel * this->beltPower / 100.0;
   gzdbg << "Received power of: " << _power << ", setting velocity to: " << this->beltVelocity << std::endl;
-}
-
-/////////////////////////////////////////////////
-void ConveyorBeltPlugin::OnEnabled(ConstGzStringPtr &_msg)
-{
-  gzdbg << "Received enable request: " << _msg->data() << std::endl;
-
-  if (_msg->data() == "enabled")
-  {
-    this->enabled = true;
-    this->SetPower(0);
-  } else if (_msg->data() == "disabled")
-  {
-    this->enabled = false;
-    this->SetPower(0);
-  } else
-  {
-    gzerr << "Unknown activation command [" << _msg->data() << "]" << std::endl;
-  }
 }
 
 /////////////////////////////////////////////////
