@@ -84,35 +84,35 @@ link_directories(
 )
 
 # Create the libVacuumGripperPlugin.so library.
-set(vacuum_gripper_plugin_name VacuumGripperPlugin)
-add_library(${vacuum_gripper_plugin_name} src/VacuumGripperPlugin.cc)
-target_link_libraries(${vacuum_gripper_plugin_name}
-  ${GAZEBO_LIBRARIES}
-  ${roscpp_LIBRARIES}
-  ${sensor_msgs_LIBRARIES}
-)
-install(TARGETS ${vacuum_gripper_plugin_name}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin)
+# set(vacuum_gripper_plugin_name VacuumGripperPlugin)
+# add_library(${vacuum_gripper_plugin_name} src/VacuumGripperPlugin.cc)
+# target_link_libraries(${vacuum_gripper_plugin_name}
+#   ${GAZEBO_LIBRARIES}
+#   ${roscpp_LIBRARIES}
+#   ${sensor_msgs_LIBRARIES}
+# )
+# install(TARGETS ${vacuum_gripper_plugin_name}
+#   ARCHIVE DESTINATION lib
+#   LIBRARY DESTINATION lib
+#   RUNTIME DESTINATION bin)
 
 # Create the libROSVacuumGripperPlugin.so library.
-set(ros_vacuum_gripper_plugin_name ROSVacuumGripperPlugin)
-add_library(${ros_vacuum_gripper_plugin_name} src/ROSVacuumGripperPlugin.cc)
-target_link_libraries(${ros_vacuum_gripper_plugin_name}
-  ${catkin_LIBRARIES}
-  ${vacuum_gripper_plugin_name}
-  ${GAZEBO_LIBRARIES}
-  ${roscpp_LIBRARIES}
-  ${sensor_msgs_LIBRARIES}
-)
-add_dependencies(${ros_vacuum_gripper_plugin_name}
-  ${${PROJECT_NAME}_EXPORTED_TARGETS}
-)
-install(TARGETS ${ros_vacuum_gripper_plugin_name}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin)
+# set(ros_vacuum_gripper_plugin_name ROSVacuumGripperPlugin)
+# add_library(${ros_vacuum_gripper_plugin_name} src/ROSVacuumGripperPlugin.cc)
+# target_link_libraries(${ros_vacuum_gripper_plugin_name}
+#   ${catkin_LIBRARIES}
+#   ${vacuum_gripper_plugin_name}
+#   ${GAZEBO_LIBRARIES}
+#   ${roscpp_LIBRARIES}
+#   ${sensor_msgs_LIBRARIES}
+# )
+# add_dependencies(${ros_vacuum_gripper_plugin_name}
+#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
+# )
+# install(TARGETS ${ros_vacuum_gripper_plugin_name}
+#   ARCHIVE DESTINATION lib
+#   LIBRARY DESTINATION lib
+#   RUNTIME DESTINATION bin)
 
 
 # Create the libSensorBlackoutPlugin.so library.
@@ -249,34 +249,34 @@ install(TARGETS ${ros_proximity_ray_plugin_name}
 )
 
 # Create the libPopulationPlugin.so library.
-set(population_plugin_name PopulationPlugin)
-add_library(${population_plugin_name} src/PopulationPlugin.cc)
-target_link_libraries(${population_plugin_name}
-  ${GAZEBO_LIBRARIES}
-)
-install(TARGETS ${population_plugin_name}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
-)
-
-# Create the libROSPopulationPlugin.so library.
-set(ros_population_plugin_name ROSPopulationPlugin)
-add_library(${ros_population_plugin_name} src/ROSPopulationPlugin.cc)
-target_link_libraries(${ros_population_plugin_name}
-  ${catkin_LIBRARIES}
-  ${population_plugin_name}
-  ${GAZEBO_LIBRARIES}
-  ${roscpp_LIBRARIES}
-)
-add_dependencies(${ros_population_plugin_name}
-  ${${PROJECT_NAME}_EXPORTED_TARGETS}
-)
-install(TARGETS ${ros_population_plugin_name}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
-)
+# set(population_plugin_name PopulationPlugin)
+# add_library(${population_plugin_name} src/PopulationPlugin.cc)
+# target_link_libraries(${population_plugin_name}
+#   ${GAZEBO_LIBRARIES}
+# )
+# install(TARGETS ${population_plugin_name}
+#   ARCHIVE DESTINATION lib
+#   LIBRARY DESTINATION lib
+#   RUNTIME DESTINATION bin
+# )
+# 
+# # Create the libROSPopulationPlugin.so library.
+# set(ros_population_plugin_name ROSPopulationPlugin)
+# add_library(${ros_population_plugin_name} src/ROSPopulationPlugin.cc)
+# target_link_libraries(${ros_population_plugin_name}
+#   ${catkin_LIBRARIES}
+#   ${population_plugin_name}
+#   ${GAZEBO_LIBRARIES}
+#   ${roscpp_LIBRARIES}
+# )
+# add_dependencies(${ros_population_plugin_name}
+#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
+# )
+# install(TARGETS ${ros_population_plugin_name}
+#   ARCHIVE DESTINATION lib
+#   LIBRARY DESTINATION lib
+#   RUNTIME DESTINATION bin
+# )
 
 # Create the libAriacTaskManagerPlugin.so library.
 set(task_plugin_name ROSAriacTaskManagerPlugin)
@@ -331,17 +331,17 @@ install(TARGETS ${ros_logical_camera_plugin_name}
 )
 
 # Create the libObjectDisposalPlugin.so library.
-set(object_disposal_plugin_name ObjectDisposalPlugin)
-add_library(${object_disposal_plugin_name} src/ObjectDisposalPlugin.cc)
-target_link_libraries(${object_disposal_plugin_name}
-  ${GAZEBO_LIBRARIES}
-  ${side_contact_plugin_name}
-)
-install(TARGETS ${object_disposal_plugin_name}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
-)
+# set(object_disposal_plugin_name ObjectDisposalPlugin)
+# add_library(${object_disposal_plugin_name} src/ObjectDisposalPlugin.cc)
+# target_link_libraries(${object_disposal_plugin_name}
+#   ${GAZEBO_LIBRARIES}
+#   ${side_contact_plugin_name}
+# )
+# install(TARGETS ${object_disposal_plugin_name}
+#   ARCHIVE DESTINATION lib
+#   LIBRARY DESTINATION lib
+#   RUNTIME DESTINATION bin
+# )
 
 # Create the libROSAriacKitTrayPlugin.so library.
 set(kit_tray_plugin_name ROSAriacKitTrayPlugin)

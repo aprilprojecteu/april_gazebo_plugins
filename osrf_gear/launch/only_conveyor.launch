@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="gui" default="true"/>
+  <arg name="debug" default="false"/>
+  <arg name="verbose" default="true"/>
+  <arg name="gazebo_ros_output" default="screen"/>
+  <!--<arg name="world_path" />-->
+
+  <!-- startup simulated world -->
+  <include file="$(find osrf_gear)/launch/empty_world.launch">
+    <!--<arg name="world_name" default="$(arg world_path)"/>-->
+    <arg name="paused" value="true"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="verbose" value="$(arg verbose)" />
+    <arg name="output" value="$(arg gazebo_ros_output)" />
+  </include>
+
+  <node name="osrf_gear_spawn_conveyor_belt_a" pkg="gazebo_ros" type="spawn_model"
+    args="
+      -file $(find osrf_gear)/models/conveyor_belt_ariac/model.sdf
+      -sdf
+      -reference_frame world
+      -model conveyor_belt_a" />
+
+</launch>

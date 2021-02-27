@@ -113,14 +113,14 @@ bool ROSConveyorBeltPlugin::OnControlCommand(ros::ServiceEvent<
     this->enabled = true;
   }
 
-  if (!this->IsEnabled())
-  {
-    std::string errStr = "Belt is not currently enabled so power cannot be set. It may be congested.";
-    gzerr << errStr << std::endl;
-    ROS_ERROR_STREAM(errStr);
-    res.success = false;
-    return true;
-  }
+//   if (!this->IsEnabled())
+//   {
+//     std::string errStr = "Belt is not currently enabled so power cannot be set. It may be congested.";
+//     gzerr << errStr << std::endl;
+//     ROS_ERROR_STREAM(errStr);
+//     res.success = false;
+//     return true;
+//   }
 
   if (!(0 == req.power || (req.power >= 50 && req.power <= 100)))
   {
