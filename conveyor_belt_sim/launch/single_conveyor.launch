@@ -19,7 +19,7 @@
 
   <node name="conveyor_belt_sim_spawn_conveyor_belt_a" pkg="gazebo_ros" type="spawn_model"
     args="
-      -file $(find conveyor_belt_sim)/models/conveyor_belt_ariac/model.sdf
+      -file $(find conveyor_belt_sim)/models/conveyor_belt/model.sdf
       -sdf
       -reference_frame world
       -model conveyor_belt_a" />
