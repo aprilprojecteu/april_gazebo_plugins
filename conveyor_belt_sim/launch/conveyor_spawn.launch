@@ -3,15 +3,16 @@
 
   <arg name="conveyor_name" default="a"/>
   <arg name="conveyor_pose" default="-x 0.0 -y 0.0"/>
+  <arg name="conveyor_sdf_path" default="$(find conveyor_belt_sim)/models/conveyor_belt/$(arg conveyor_name)/$(arg conveyor_name).sdf" />
 
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_conveyor_belt_$(arg conveyor_name)"
     args="
-      -file $(find conveyor_belt_sim)/models/conveyor_belt/model_$(arg conveyor_name).sdf
+      -file $(arg conveyor_sdf_path)
       -sdf
       -x 1.0
       -y 1.0
       -reference_frame world
       $(arg conveyor_pose)
-      -model conveyor_belt_$(arg conveyor_name)" />
+      -model $(arg conveyor_name)" />
 
 </launch>

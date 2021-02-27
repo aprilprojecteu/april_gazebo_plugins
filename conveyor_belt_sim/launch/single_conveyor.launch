@@ -16,7 +16,7 @@
   </include>
 
   <include file="$(find conveyor_belt_sim)/launch/conveyor_spawn.launch">
-    <arg name="conveyor_name" value="a"/>
+    <arg name="conveyor_name" value="conveyor_belt_a"/>
   </include>
 
 </launch>
