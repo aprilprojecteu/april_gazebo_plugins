@@ -15,7 +15,7 @@
  *
 */
 #include "ROSConveyorBeltPlugin.hh"
-#include "osrf_gear/ConveyorBeltState.h"
+#include "conveyor_belt_sim/ConveyorBeltState.h"
 
 #include <cstdlib>
 #include <string>
@@ -72,13 +72,13 @@ void ROSConveyorBeltPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf
 
   // Message used for publishing the state of the conveyor.
   this->statePub = this->rosnode_->advertise<
-    osrf_gear::ConveyorBeltState>(stateTopic, 1000);
+    conveyor_belt_sim::ConveyorBeltState>(stateTopic, 1000);
 }
 
 /////////////////////////////////////////////////
 void ROSConveyorBeltPlugin::Publish() const
 {
-  osrf_gear::ConveyorBeltState stateMsg;
+  conveyor_belt_sim::ConveyorBeltState stateMsg;
   stateMsg.enabled = this->IsEnabled();
   stateMsg.power = this->Power();
   this->statePub.publish(stateMsg);
@@ -86,10 +86,10 @@ void ROSConveyorBeltPlugin::Publish() const
 
 /////////////////////////////////////////////////
 bool ROSConveyorBeltPlugin::OnControlCommand(ros::ServiceEvent<
-  osrf_gear::ConveyorBeltControl::Request, osrf_gear::ConveyorBeltControl::Response> & event)
+  conveyor_belt_sim::ConveyorBeltControl::Request, conveyor_belt_sim::ConveyorBeltControl::Response> & event)
 {
-  const osrf_gear::ConveyorBeltControl::Request& req = event.getRequest();
-  osrf_gear::ConveyorBeltControl::Response& res = event.getResponse();
+  const conveyor_belt_sim::ConveyorBeltControl::Request& req = event.getRequest();
+  conveyor_belt_sim::ConveyorBeltControl::Response& res = event.getResponse();
   gzdbg << "Conveyor control service called with: " << req.power << std::endl;
 
   const std::string& callerName = event.getCallerName();

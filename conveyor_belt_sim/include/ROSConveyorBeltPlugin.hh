@@ -24,7 +24,7 @@
 #include "ConveyorBeltPlugin.hh"
 
 // ROS
-#include <osrf_gear/ConveyorBeltControl.h>
+#include <conveyor_belt_sim/ConveyorBeltControl.h>
 #include <ros/ros.h>
 
 namespace gazebo
@@ -47,8 +47,8 @@ namespace gazebo
     /// \param[in] _req The desired state of the conveyor belt.
     /// \param[in] _res If the service succeeded or not.
     public: bool OnControlCommand(ros::ServiceEvent<
-      osrf_gear::ConveyorBeltControl::Request,
-      osrf_gear::ConveyorBeltControl::Response> & event);
+      conveyor_belt_sim::ConveyorBeltControl::Request,
+      conveyor_belt_sim::ConveyorBeltControl::Response> & event);
 
     // Documentation inherited.
     private: virtual void Publish() const;

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>osrf_gear</name>
+  <name>conveyor_belt_sim</name>
   <version>3.0.7</version>
   <description>
     A conveyor belt taken from: The ROS package for the NIST Industrial Automation Competition.
