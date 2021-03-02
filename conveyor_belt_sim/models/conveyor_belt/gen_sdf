@@ -1,8 +1,18 @@
 #!/bin/bash
 
 # install by: sudo -H pip3 install xacro4sdf
-echo 'you might want to first modify: <xacro_define_property name="conveyor_name" value="conveyor_belt_a" /> (inside model.sdf.xacro)'
+echo 'hint in case of problems: edit <xacro_define_property name="conveyor_name" value="conveyor_belt_a" /> (inside model.sdf.xacro)'
 
 xacro4sdf model.sdf.xacro
 
 echo 'model.sdf generated...'
+
+# ==========================================
+
+# uncomment only one of the following for debugging
+
+# cp model.sdf conveyor_belt_a/conveyor_belt_a.sdf
+# rosrun gazebo_ros spawn_model -sdf -file `rospack find conveyor_belt_sim`/models/conveyor_belt/conveyor_belt_a/conveyor_belt_a.sdf -model cb -y 0.95 -z 0.5
+
+# cp model.sdf conveyor_belt_b/conveyor_belt_b.sdf
+# rosrun gazebo_ros spawn_model -sdf -file `rospack find conveyor_belt_sim`/models/conveyor_belt/conveyor_belt_a/conveyor_belt_a.sdf -model cb -y 2.3 -z 0.5 -Y 3.14159

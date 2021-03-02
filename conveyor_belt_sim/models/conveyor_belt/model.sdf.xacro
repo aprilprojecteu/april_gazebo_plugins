@@ -19,7 +19,7 @@
 
     <!-- generic conveyor properties -->
     <xacro_define_property name="retraction_distance" value="0.3" />
-    <xacro_define_property name="conveyor_length" value="3.0" />
+    <xacro_define_property name="conveyor_length" value="3.3" />
 
     <model name="${conveyor_name}">
       <!-- Fixed frame that can be used to refer to the belt's global pose -->
@@ -86,11 +86,20 @@
         <pose>1.16 -4.12 0.35 0 0 -1.57079</pose>
         <link name="belt">
           <pose>-4.8 0 0 0 0 0</pose>
-          <visual name="belt_visual">
+          <!-- uncomment for debugging -->
+          <!--<visual name="belt_visual_simplified">
             <geometry>
               <box>
                 <size>${conveyor_length} 0.75461 0.18862</size>
               </box>
+            </geometry>
+          </visual>-->
+          <visual name="belt_visual">
+            <pose>-2.05 1.2 -0.815 0 0 0</pose>
+            <geometry>
+              <mesh>
+                <uri>model://conveyor_belt/meshes/conveyor.dae</uri>
+              </mesh>
             </geometry>
           </visual>
         </link>
