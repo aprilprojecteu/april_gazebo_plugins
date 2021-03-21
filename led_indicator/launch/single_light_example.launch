@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- start empty world -->
+  <arg name="gui" default="true"/>
+  <arg name="debug" default="false"/>
+  <arg name="verbose" default="true"/>
+  <arg name="gazebo_ros_output" default="screen"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="true"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="verbose" value="$(arg verbose)" />
+    <arg name="output" value="$(arg gazebo_ros_output)" />
+  </include>
+
+  <!-- spawn light -->
+  <arg name="light_name" default="my_light"/>
+  <arg name="light_pose" default="-x 0.0 -y 0.0"/>
+  <arg name="light_sdf_path" default="$(find led_indicator)/models/led_indicator/model.sdf" />
+  <node pkg="gazebo_ros" type="spawn_model" name="led_indicator_$(arg light_name)_spawner"
+    args="
+      -file $(arg light_sdf_path)
+      -sdf
+      -reference_frame world
+      $(arg light_pose)
+      -model $(arg light_name)" />
+
+</launch>
