@@ -21,18 +21,24 @@ find_package(gazebo_plugins REQUIRED)
 include_directories(
   include
   ${GAZEBO_INCLUDE_DIRS}
-#   ${roscpp_INCLUDE_DIRS}
-#   ${catkin_INCLUDE_DIRS}
+  ${roscpp_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
 )
 
 link_directories(
   ${GAZEBO_LIBRARY_DIRS}
 )
 
+# flashlight plugin
+set(plugin_name FlashLightPlugin)
+add_library(flashlight src/FlashLightPlugin.cc)
+target_link_libraries(flashlight ${GAZEBO_LIBRARIES})
+
 # Create the libLedPluginM.so library.
 set(plugin_name LedPluginM)
 add_library(${plugin_name} src/LedPluginM.cc)
-target_link_libraries(${plugin_name} ${GAZEBO_LIBRARIES} /usr/lib/x86_64-linux-gnu/gazebo-11/plugins/libFlashLightPlugin.so)
+# target_link_libraries(${plugin_name} ${GAZEBO_LIBRARIES} /usr/lib/x86_64-linux-gnu/gazebo-11/plugins/libFlashLightPlugin.so)
+target_link_libraries(${plugin_name} ${GAZEBO_LIBRARIES} flashlight)
 install(TARGETS ${plugin_name}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
