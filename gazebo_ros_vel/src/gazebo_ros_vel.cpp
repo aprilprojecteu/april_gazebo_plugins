@@ -16,9 +16,12 @@
 */
 
 /*
-   Desc: GazeboRosForce plugin for manipulating objects in Gazebo
+   Desc: GazeboRosVel plugin for manipulating objects in Gazebo
    Author: John Hsu
    Date: 24 Sept 2008
+   
+   Modified on 14.04.2021 by Oscar Lima (oscar.lima@dfki.de) to adapt it to the needs of the EU april project
+   
  */
 
 #include <algorithm>
@@ -31,11 +34,11 @@
 
 namespace gazebo
 {
-GZ_REGISTER_MODEL_PLUGIN(GazeboRosForce);
+GZ_REGISTER_MODEL_PLUGIN(GazeboRosVel);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constructor
-GazeboRosForce::GazeboRosForce()
+GazeboRosVel::GazeboRosVel()
 {
   this->vel_msg_.linear.x = 0;
   this->vel_msg_.linear.y = 0;
@@ -47,7 +50,7 @@ GazeboRosForce::GazeboRosForce()
 
 ////////////////////////////////////////////////////////////////////////////////
 // Destructor
-GazeboRosForce::~GazeboRosForce()
+GazeboRosVel::~GazeboRosVel()
 {
   this->update_connection_.reset();
 
@@ -62,7 +65,7 @@ GazeboRosForce::~GazeboRosForce()
 
 ////////////////////////////////////////////////////////////////////////////////
 // Load the controller
-void GazeboRosForce::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
+void GazeboRosVel::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
   // Get the world name.
   this->world_ = _model->GetWorld();
@@ -74,7 +77,7 @@ void GazeboRosForce::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
   if (!_sdf->HasElement("bodyName"))
   {
-    ROS_FATAL_NAMED("force", "force plugin missing <bodyName>, cannot proceed");
+    ROS_FATAL_NAMED("gazebo_ros_vel", "gazebo_ros_vel plugin missing <bodyName>, cannot proceed");
     return;
   }
   else
@@ -83,13 +86,13 @@ void GazeboRosForce::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   this->link_ = _model->GetLink(this->link_name_);
   if (!this->link_)
   {
-    ROS_FATAL_NAMED("force", "gazebo_ros_vel plugin error: link named: %s does not exist\n",this->link_name_.c_str());
+    ROS_FATAL_NAMED("gazebo_ros_vel", "gazebo_ros_vel plugin error: link named: %s does not exist\n",this->link_name_.c_str());
     return;
   }
 
   if (!_sdf->HasElement("topicName"))
   {
-    ROS_FATAL_NAMED("force", "force plugin missing <topicName>, cannot proceed");
+    ROS_FATAL_NAMED("gazebo_ros_vel", "gazebo_ros_vel plugin missing <topicName>, cannot proceed");
     return;
   }
   else
@@ -99,7 +102,7 @@ void GazeboRosForce::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   // Make sure the ROS node for Gazebo has already been initialized
   if (!ros::isInitialized())
   {
-    ROS_FATAL_STREAM_NAMED("force", "A ROS node for Gazebo has not been initialized, unable to load plugin. "
+    ROS_FATAL_STREAM_NAMED("gazebo_ros_vel", "A ROS node for Gazebo has not been initialized, unable to load plugin. "
       << "Load the Gazebo system plugin 'libgazebo_ros_api_plugin.so' in the gazebo_ros package)");
     return;
   }
@@ -109,23 +112,23 @@ void GazeboRosForce::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   // Custom Callback Queue
   ros::SubscribeOptions so = ros::SubscribeOptions::create<geometry_msgs::Twist>(
     this->topic_name_,1,
-    boost::bind( &GazeboRosForce::UpdateObjectForce,this,_1),
+    boost::bind( &GazeboRosVel::UpdateObjectVel,this,_1),
     ros::VoidPtr(), &this->queue_);
   this->sub_ = this->rosnode_->subscribe(so);
 
   // Custom Callback Queue
-  this->callback_queue_thread_ = boost::thread( boost::bind( &GazeboRosForce::QueueThread,this ) );
+  this->callback_queue_thread_ = boost::thread( boost::bind( &GazeboRosVel::QueueThread,this ) );
 
   // New Mechanism for Updating every World Cycle
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
   this->update_connection_ = event::Events::ConnectWorldUpdateBegin(
-      boost::bind(&GazeboRosForce::UpdateChild, this));
+      boost::bind(&GazeboRosVel::UpdateChild, this));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Update the controller
-void GazeboRosForce::UpdateObjectForce(const geometry_msgs::Twist::ConstPtr& _msg)
+void GazeboRosVel::UpdateObjectVel(const geometry_msgs::Twist::ConstPtr& _msg)
 {
   this->vel_msg_.linear.x = _msg->linear.x;
   this->vel_msg_.linear.y = _msg->linear.y;
@@ -139,10 +142,10 @@ void GazeboRosForce::UpdateObjectForce(const geometry_msgs::Twist::ConstPtr& _ms
 
 ////////////////////////////////////////////////////////////////////////////////
 // Update the controller
-void GazeboRosForce::UpdateChild()
+void GazeboRosVel::UpdateChild()
 {
 #ifdef ENABLE_PROFILER
-  IGN_PROFILE("GazeboRosForce::OnNewFrame");
+  IGN_PROFILE("GazeboRosVel::OnNewFrame");
   IGN_PROFILE_BEGIN("fill ROS message");
 #endif
   this->lock_.lock();
@@ -159,7 +162,7 @@ void GazeboRosForce::UpdateChild()
 // Custom Callback Queue
 ////////////////////////////////////////////////////////////////////////////////
 // custom callback queue thread
-void GazeboRosForce::QueueThread()
+void GazeboRosVel::QueueThread()
 {
   static const double timeout = 0.01;
 

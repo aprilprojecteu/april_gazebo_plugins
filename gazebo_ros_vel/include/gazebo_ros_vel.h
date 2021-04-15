@@ -18,10 +18,13 @@
  * Desc: A dynamic controller plugin that performs generic force interface.
  * Author: John Hsu
  * Date: 24 Sept 2008
+ * 
+ * Modified on 14.04.2021 by Oscar Lima (oscar.lima@dfki.de) to adapt it to the needs of the EU april project
+ * 
  */
 
-#ifndef GAZEBO_ROS_FORCE_HH
-#define GAZEBO_ROS_FORCE_HH
+#ifndef GAZEBO_ROS_VEL_HH
+#define GAZEBO_ROS_VEL_HH
 
 #include <string>
 
@@ -44,18 +47,18 @@ namespace gazebo
 {
 /// @addtogroup gazebo_dynamic_plugins Gazebo ROS Dynamic Plugins
 /// @{
-/** \defgroup GazeboRosForce Plugin XML Reference and Example
+/** \defgroup GazeboRosVel Plugin XML Reference and Example
 
-  \brief Ros Force Plugin.
+  \brief Ros Vel Plugin.
 
   This is a Plugin that collects data from a ROS topic and applies wrench to a body accordingly.
 
   Example Usage:
   \verbatim
       <gazebo>
-        <plugin filename="libgazebo_ros_force.so" name="gazebo_ros_force">
+        <plugin filename="libgazebo_ros_vel.so" name="gazebo_ros_vel">
           <bodyName>box_body</bodyName>
-          <topicName>box_force</topicName>
+          <topicName>cmd_vel</topicName>
         </plugin>
       </gazebo>
   \endverbatim
@@ -63,13 +66,13 @@ namespace gazebo
 \{
 */
 
-class GazeboRosForce : public ModelPlugin
+class GazeboRosVel : public ModelPlugin
 {
   /// \brief Constructor
-  public: GazeboRosForce();
+  public: GazeboRosVel();
 
   /// \brief Destructor
-  public: virtual ~GazeboRosForce();
+  public: virtual ~GazeboRosVel();
 
   // Documentation inherited
   protected: void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf);
@@ -78,8 +81,8 @@ class GazeboRosForce : public ModelPlugin
   protected: virtual void UpdateChild();
 
   /// \brief call back when a Wrench message is published
-  /// \param[in] _msg The Incoming ROS message representing the new force to exert.
-  private: void UpdateObjectForce(const geometry_msgs::Twist::ConstPtr& _msg);
+  /// \param[in] _msg The Incoming ROS message representing the new velocity to exert.
+  private: void UpdateObjectVel(const geometry_msgs::Twist::ConstPtr& _msg);
 
   /// \brief The custom callback queue thread function.
   private: void QueueThread();
@@ -87,7 +90,7 @@ class GazeboRosForce : public ModelPlugin
   /// \brief A pointer to the gazebo world.
   private: physics::WorldPtr world_;
 
-  /// \brief A pointer to the Link, where force is applied
+  /// \brief A pointer to the Link, where velocity is applied
   private: physics::LinkPtr link_;
 
   /// \brief A pointer to the ROS node.  A node will be instantiated if it does not exist.
@@ -109,7 +112,7 @@ class GazeboRosForce : public ModelPlugin
   private: ros::CallbackQueue queue_;
   /// \brief Thead object for the running callback Thread.
   private: boost::thread callback_queue_thread_;
-  /// \brief Container for the wrench force that this plugin exerts on the body.
+  /// \brief Container for the twist vel that this plugin exerts on the body.
   private: geometry_msgs::Twist vel_msg_;
 
   // Pointer to the update event connection
