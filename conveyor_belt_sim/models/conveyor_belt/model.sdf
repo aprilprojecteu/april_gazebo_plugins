@@ -117,7 +117,7 @@
 			<link>conveyor_belt::conveyor_belt_moving::belt</link>
 			<cb_rotation_angle>0.0</cb_rotation_angle>
 			<!-- conveyor belt rotation angle in radians -->
-			<retraction_distance>0.3</retraction_distance>
+			<retraction_distance>0.01</retraction_distance>
 			<power>0</power>
 			<update_rate>10</update_rate>
 		</plugin>

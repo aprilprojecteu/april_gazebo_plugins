@@ -18,7 +18,7 @@
     <!-- ====================================================================== -->
 
     <!-- generic conveyor properties -->
-    <xacro_define_property name="retraction_distance" value="0.3" />
+    <xacro_define_property name="retraction_distance" value="0.01" />
     <xacro_define_property name="conveyor_length" value="3.3" />
 
     <model name="${conveyor_name}">
