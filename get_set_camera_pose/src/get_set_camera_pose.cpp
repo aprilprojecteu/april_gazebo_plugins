@@ -23,7 +23,7 @@ namespace gazebo
     public: void Load(int /*_argc*/, char ** /*_argv*/) {}
 
     private: void Init() {
-      this->nh_.reset(new ros::NodeHandle("gazebo_client"));
+      this->nh_.reset(new ros::NodeHandle("~"));
 
       // Define service to get and set the camera pose
       this->updateService = this->nh_->advertiseService("update_camera_pose", &GazeboGetSetCameraPose::UpdateService, this);
