@@ -15,29 +15,20 @@ namespace gazebo
     public: virtual ~GazeboGetSetCameraPose()
     {
       this->connections.clear();
-      if (this->rosNode) {
-        this->rosNode->shutdown();
+      if (this->nh_) {
+        this->nh_->shutdown();
       }
     }
 
-    public: void Load(int /*_argc*/, char ** /*_argv*/)
-    {
+    public: void Load(int /*_argc*/, char ** /*_argv*/) {}
 
-      if (!ros::isInitialized())
-      {
-        int argc = 0;
-        char **argv = NULL;
-        ros::init(argc, argv, "gazebo_client", ros::init_options::NoSigintHandler);
-      }
-
-      this->rosNode.reset(new ros::NodeHandle("gazebo_client"));
+    private: void Init() {
+      this->nh_.reset(new ros::NodeHandle("gazebo_client"));
 
       // Define service to get and set the camera pose
-      this->updateService = this->rosNode->advertiseService("update_camera_pose", &GazeboGetSetCameraPose::UpdateService, this);
-      this->getPoseService = this->rosNode->advertiseService("print_current_camera_pose", &GazeboGetSetCameraPose::GetPoseService, this);
+      this->updateService = this->nh_->advertiseService("update_camera_pose", &GazeboGetSetCameraPose::UpdateService, this);
+      this->getPoseService = this->nh_->advertiseService("print_current_camera_pose", &GazeboGetSetCameraPose::GetPoseService, this);
     }
-
-    private: void Init() {}
 
     private: bool GetPoseService(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res)
     {
@@ -114,7 +105,7 @@ namespace gazebo
     private: std::vector<event::ConnectionPtr> connections;
 
     /// ROS node handle.
-    private: std::unique_ptr<ros::NodeHandle> rosNode;
+    private: std::unique_ptr<ros::NodeHandle> nh_;
 
     /// ROS service for updating the camera pose.
     private: ros::ServiceServer updateService;
