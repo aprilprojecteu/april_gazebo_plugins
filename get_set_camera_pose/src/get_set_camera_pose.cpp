@@ -45,7 +45,7 @@ namespace gazebo
       }
 
       ignition::math::Pose3d currentPose = this->userCam->WorldPose();
-      std::cout << "Current Camera Pose: "
+      std::cout << "Current Camera Pose:\n"
                 << "Position\nx: " << currentPose.Pos().X()
                 << ", y: " << currentPose.Pos().Y()
                 << ", z: " << currentPose.Pos().Z()
