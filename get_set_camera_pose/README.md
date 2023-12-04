@@ -28,13 +28,27 @@ roslaunch gazebo_ros empty_world.launch gui:=false
 In a separate terminal, do:
 
 ```bash
-rosrun gazebo_ros gzclient -g libget_set_camera_pose.so
+rosrun gazebo_ros gzclient __name:=gazebo_client -g libget_set_camera_pose.so
 ```
 
 open issue: gzclient is not dying when you launch it in a separate terminal, your options are:
 
 - close gazebo window with mouse and then click on "force quit"
 - with command: ```killall gzclient``` (easiest)
+- make a launch file with gzclient like this one:
+
+```xml
+<?xml version="1.0"?>
+<launch>
+
+  <!-- start gazebo client -->
+  <node name="gazebo_client" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"
+        args="-g libget_set_camera_pose.so" />
+
+</launch>
+```
+
+upon killing the launch file, after a while... the process will end.
 
 # Load plugin option 2 (currently not working: see Load plugin option 1 or 3)
 
