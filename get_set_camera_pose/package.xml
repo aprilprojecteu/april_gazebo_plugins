@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>get_set_camera_pose</name>
+  <version>0.0.1</version>
+  <description>
+    Plugin to get or set the gazebo camera pose
+  </description>
+
+  <maintainer email="oscar.lima@dfki.de">Oscar Lima</maintainer>
+
+  <license>BSD</license>
+
+  <author email="oscar.lima@dfki.de">Oscar Lima</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_export_depend>message_runtime</build_export_depend>
+
+  <build_depend>gazebo_dev</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <exec_depend>gazebo_dev</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <depend>gazebo_ros</depend>
+  <depend>roscpp</depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_srvs</depend>
+
+</package>
