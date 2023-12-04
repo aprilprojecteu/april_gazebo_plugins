@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="gz_args" default="-g libget_set_camera_pose.so"
+       doc="additional option: --verbose"/>
+
+  <!-- start gazebo client -->
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false"
+        output="screen" args="$(arg gz_args)" >
+    <remap from="/gazebo_gui/get_physics_properties" to="/gazebo/get_physics_properties" />
+    <remap from="/gazebo_gui/set_physics_properties" to="/gazebo/set_physics_properties" />
+  </node>
+
+</launch>
