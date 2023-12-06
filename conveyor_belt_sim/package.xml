@@ -33,7 +33,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <depend>gazebo_plugins</depend>
+  <depend>gazebo</depend>
   <depend>gazebo_ros</depend>
   <depend>roscpp</depend>
   <depend>std_msgs</depend>
